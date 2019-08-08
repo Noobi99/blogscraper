@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+  <p class="text-center">Hi {{ user.username }}. Here is todays blog feed.</p>
+  <p><a href="{% url 'logout' %}">logout</a></p>
+
+<div class="container">
+  <div class="row">
+{% for blog_post in object_list %}
+    <div class="col">
+      <img width="40%" height="40%" src={{ blog_post.blog_picture.url }} alt="Picture of Rango" /> <!-- New line -->
+      <p></p>
+      5 min ago - {{ blog_post.blog_title }}
+      <p><a href="google.com">Click here to read more</a></p>
+    </div>
+    
+{% empty %}
+    <h3>No blogs found. Click here to subscribe to some and get started</h3>
+{% endfor %}
+  </div>
+</div>
+
+
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Click here to Login</a>
+  <p><a href={% url 'signup' %}>Click here to Signup</a></p>
+
+{% endif %}
+
+{% endblock content %}
